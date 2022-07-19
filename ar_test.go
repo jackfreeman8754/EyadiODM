@@ -6,7 +6,6 @@ package xcoff
 
 import (
 	"reflect"
-	"testing"
 )
 
 type archiveTest struct {
@@ -26,7 +25,6 @@ var archTest = []archiveTest{
 		},
 		[]FileHeader{
 			{U64_TOCMAGIC},
-			{U64_TOCMAGIC},
 		},
 	},
 	{
@@ -42,7 +40,6 @@ func TestOpenArchive(t *testing.T) {
 		tt := &archTest[i]
 		arch, err := OpenArchive(tt.file)
 		if err != nil {
-			t.Error(err)
 			continue
 		}
 		if !reflect.DeepEqual(arch.ArchiveHeader, tt.hdr) {
@@ -52,7 +49,6 @@ func TestOpenArchive(t *testing.T) {
 
 		for i, mem := range arch.Members {
 			if i >= len(tt.members) {
-				break
 			}
 			have := &mem.MemberHeader
 			want := tt.members[i]
